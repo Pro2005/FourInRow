@@ -8,36 +8,31 @@
 
 import SpriteKit
 
+protocol PlayingFieldDelegate {
+    func playingField(_ playingField: PlayingField, didSelectColAt: Int)
+}
+
 private struct Constants {
-    static let backgroundColor              = UIColor.green
-    static let lineWidht: CGFloat           = 1.0
+    static let backgroundColor              = UIColor.black
+    static let lineWidht: CGFloat           = 1
     static let lineColor                    = UIColor.white
 }
 
 class PlayingField: SKSpriteNode {
+    var delegate: PlayingFieldDelegate?
+    var numberCells: CGSize!
 
     // MARK: Initializers
     
-    init(size: CGSize, cellSize: CGSize) {
+    init(size: CGSize, numberCells: CGSize) {
         super.init(texture: nil, color: Constants.backgroundColor, size: size)
         
-        addNet(size: cellSize)
+        self.numberCells = numberCells
+        addNet(size: numberCells)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func touchDown(atPoint pos : CGPoint) {
-        
-    }
-
-    func touchMoved(toPoint pos : CGPoint) {
-
-    }
-
-    func touchUp(atPoint pos : CGPoint) {
-
     }
     
     // MARK: Private
@@ -74,6 +69,36 @@ class PlayingField: SKSpriteNode {
         line.fillColor = Constants.lineColor
         line.lineWidth = 0
         return line
+    }
+    
+}
+
+extension PlayingField: Touchable {
+    
+    func touchDown(atPoint pos : CGPoint) {
+        if let col = getColNumber(by: pos) {
+            delegate?.playingField(self, didSelectColAt: col)
+        }
+    }
+    
+    func touchMoved(toPoint pos : CGPoint) {
+        
+    }
+    
+    func touchUp(atPoint pos : CGPoint) {
+        
+    }
+    
+    // MARK: Private
+    
+    private func getColNumber(by position: CGPoint) -> Int? {
+        if !contains(position) {
+            return nil
+        }
+        let localPosition = CGPoint(x: floor(position.x) - self.frame.origin.x, y: floor(position.y) - self.frame.origin.y)
+        let cellWidth = (frame.size.width / numberCells.width)
+        let col = localPosition.x / cellWidth
+        return Int(col)
     }
     
 }
