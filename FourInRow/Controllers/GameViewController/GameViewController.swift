@@ -10,8 +10,12 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
+private struct Constants {
+    static let playingFieldSize = CGSize(width: 10, height: 10)
+}
 
+class GameViewController: UIViewController {
+    
     // MARK: Lifecycle
     
     override func loadView() {
@@ -54,7 +58,8 @@ class GameViewController: UIViewController {
     }
     
     private func createGameScene() -> SKScene {
-        let scene = GameScene(size: self.view.frame.size)
+        let game = Game(size: Constants.playingFieldSize)
+        let scene = GameScene(size: view.frame.size, game: game)
         scene.scaleMode = .aspectFill
         return scene
     }

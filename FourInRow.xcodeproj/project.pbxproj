@@ -12,6 +12,7 @@
 		0819BB1C1DDF437A00F50A5A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819BB1B1DDF437A00F50A5A /* GameScene.swift */; };
 		0819BB1F1DDF468800F50A5A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819BB1E1DDF468800F50A5A /* GameViewController.swift */; };
 		0819BB241DDF510400F50A5A /* PlayingField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819BB231DDF510400F50A5A /* PlayingField.swift */; };
+		0873AB751DE49FA50075FF82 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873AB741DE49FA50075FF82 /* Game.swift */; };
 		08A9CE0B1DE38935006A11CE /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A9CE0A1DE38935006A11CE /* Touchable.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		0819BB1B1DDF437A00F50A5A /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		0819BB1E1DDF468800F50A5A /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		0819BB231DDF510400F50A5A /* PlayingField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingField.swift; sourceTree = "<group>"; };
+		0873AB741DE49FA50075FF82 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		08A9CE0A1DE38935006A11CE /* Touchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touchable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,6 +58,7 @@
 		0819BAF71DDF123500F50A5A /* FourInRow */ = {
 			isa = PBXGroup;
 			children = (
+				0873AB731DE49F9A0075FF82 /* Models */,
 				08A9CE091DE3891E006A11CE /* Protocols */,
 				0819BB221DDF50EE00F50A5A /* Nodes */,
 				0819BB111DDF42DE00F50A5A /* Scenes */,
@@ -113,6 +116,14 @@
 				0819BB231DDF510400F50A5A /* PlayingField.swift */,
 			);
 			path = Nodes;
+			sourceTree = "<group>";
+		};
+		0873AB731DE49F9A0075FF82 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0873AB741DE49FA50075FF82 /* Game.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		08A9CE091DE3891E006A11CE /* Protocols */ = {
@@ -194,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08A9CE0B1DE38935006A11CE /* Touchable.swift in Sources */,
+				0873AB751DE49FA50075FF82 /* Game.swift in Sources */,
 				0819BB1C1DDF437A00F50A5A /* GameScene.swift in Sources */,
 				0819BB241DDF510400F50A5A /* PlayingField.swift in Sources */,
 				0819BB1F1DDF468800F50A5A /* GameViewController.swift in Sources */,
