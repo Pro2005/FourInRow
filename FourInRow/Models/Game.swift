@@ -9,66 +9,66 @@
 import Foundation
 import UIKit
 
-private enum CellType: Int {
-    case empty
+private struct Constants {
+    static let emptyCell    = Foundation.NSNotFound
 }
 
 struct Game {
     let size: CGSize!
-    private var field = [[Int]]()
+    var currentPlayer: Player
+    // MARK: Private
+    private var players: [Player]
+    private var field: Matrix<Int>
     
     // MARK: Initialization
     
-    init(size: CGSize) {
+    init(size: CGSize, players: [Player]) {
+        assert(players.count == 0)
         self.size = size
-        setupField(size)
+        field = Matrix<Int>(row: Int(size.height), column: Int(size.width), initValue: Constants.emptyCell)
+        self.players = players
+        currentPlayer = players.first!
     }
     
     // MARK: Public
     
     func addNewCellInColumn(columnNumber: Int) {
-        for row in field.reversed() {
-            var cell = row[columnNumber]
-            if cell == CellType.empty.rawValue {
+        var rowIndex: Int = 0
+        for item in field.itemsInColumn(columnNumber) {
+            if item == Constants.emptyCell {
+                break;
             }
+            rowIndex += 1
         }
+//        self.field[rowIndex, columnNumber] = 10
     }
     
     func shouldAddNewCellInColumn(columnNumber: Int) -> Bool {
         return !isColumnFull(columnNumber: columnNumber)
     }
     
-    func displayInConsole() {
-        for row in field {
-            print(row, separator: "|", terminator: "\n");
-        }
-    }
     
-    // MARK: Private 
-    
-    private mutating func setupField(_ size: CGSize) {
-        for _ in 0...Int(size.height) {
-            var row = [Int]()
-            for _ in 0...Int(size.width) {
-                let empty = 0
-                row.append(empty)
-            }
-            field.append(row)
-        }
-    }
+    // MARK: Private
     
     private func isColumnFull(columnNumber: Int) -> Bool {
         var isFull = true
-        for row in field {
-            if columnNumber < row.count {
-                let cell = row[columnNumber]
-                if cell == CellType.empty.rawValue {
-                    isFull = false
-                    break
-                }
+        for item in field.itemsInColumn(columnNumber) {
+            if item == Constants.emptyCell {
+                isFull = false
+                break
             }
         }
         return isFull
+    }
+    
+    private func getCurrentPlayerIndex() -> Int {
+        let index = self.players.index { (player) -> Bool in
+            return player == currentPlayer
+        }
+        if let index = index {
+            return index
+        }
+        return Constants.emptyCell
     }
     
 }

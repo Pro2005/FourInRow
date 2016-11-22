@@ -122,7 +122,7 @@ extension GameScene: PlayingFieldDelegate {
             return
         }
         game.addNewCellInColumn(columnNumber: didSelectColAt)
-        game.displayInConsole()
+//        game.displayInConsole()
     }
     
 }

@@ -52,13 +52,12 @@ class GameViewController: UIViewController {
     // MARK: Private
     
     private func setup() {
-        let gameScene = self.createGameScene()
+        let gameScene = self.createGameScene(game: createGame())
         present(scene: gameScene)
         setDebugInfo()
     }
     
-    private func createGameScene() -> SKScene {
-        let game = Game(size: Constants.playingFieldSize)
+    private func createGameScene(game: Game) -> SKScene {
         let scene = GameScene(size: view.frame.size, game: game)
         scene.scaleMode = .aspectFill
         return scene
@@ -78,4 +77,16 @@ class GameViewController: UIViewController {
             view.presentScene(scene)
         }
     }
+    
+    private func createGame() -> Game {
+        let game = Game(size: Constants.playingFieldSize, players: createPlayers())
+        return game
+    }
+    
+    private func createPlayers() -> [Player] {
+        let player1 = Player(name: "first", color: UIColor.red)
+        let player2 = Player(name: "second", color: UIColor.blue)
+        return [player1, player2]
+    }
+    
 }
