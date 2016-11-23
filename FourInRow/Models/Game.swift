@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 private struct Constants {
-    static let emptyCell    = 0
+    static let emptyCell            = 0
+    static let lengthForWinning     = 4
 }
 
 struct Game {
@@ -61,7 +62,34 @@ struct Game {
             currentIndex = 0
         }
         currentPlayer = players[currentIndex]
+    }
+    
+    func isCurrentPlayerWinnerWithLast(row: Int, column: Int) -> Player? {
+        let rowIterator = RowIterator<Int>(matrix: field, row: row)
+        var length = getLineLengthWith(iterator: rowIterator, countableIndex: getCurrentPlayerIndex())
+        if length >= Constants.lengthForWinning  {
+            return currentPlayer
+        }
         
+        let columnIterator = ColumnIterator<Int>(matrix: field, column: column)
+        length = getLineLengthWith(iterator: columnIterator, countableIndex: getCurrentPlayerIndex())
+        if length >= Constants.lengthForWinning {
+            return currentPlayer;
+        }
+        
+        let leftToRightIterator = DiagonalLeftToRightIterator<Int>(matrix: field, row: row, column: column)
+        length = getLineLengthWith(iterator: leftToRightIterator, countableIndex: getCurrentPlayerIndex())
+        if length >= Constants.lengthForWinning {
+            return currentPlayer;
+        }
+        
+        let rightToLeftIterator = DiagonalRightToLeftIterator<Int>(matrix: field, row: row, column: column)
+        length = getLineLengthWith(iterator: rightToLeftIterator, countableIndex: getCurrentPlayerIndex())
+        if length >= Constants.lengthForWinning {
+            return currentPlayer;
+        }
+        
+        return nil
     }
     
     // MARK: Private
@@ -85,6 +113,23 @@ struct Game {
             return index + 1
         }
         return Constants.emptyCell
+    }
+    
+    private func getLineLengthWith(iterator: MatrixIterator<Int>, countableIndex: Int) -> Int {
+        var lenght = 0
+        var longestLength = 0
+        while let item = iterator.next() {
+            if item == countableIndex {
+                lenght += 1
+            } else {
+                if lenght > longestLength {
+                    longestLength = lenght
+                }
+                lenght = 0
+            }
+        }
+
+        return longestLength
     }
     
 }

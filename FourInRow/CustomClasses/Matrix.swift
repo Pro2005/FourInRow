@@ -10,8 +10,15 @@ import Foundation
 
 struct Matrix <T> {
     private var items = [[T]]()
-    
-    
+    var rowCount: Int {
+        return self.items.count
+    }
+    var columnCount: Int {
+        if let firstRow = self.items.first {
+            return firstRow.count
+        }
+        return 0
+    }
     
     init(row: Int, column: Int, initValue: T) {
         for _ in 0..<row {
@@ -37,6 +44,10 @@ struct Matrix <T> {
             }
         }
         return result
+    }
+    
+    func itemsInRow(_ rowNumber: Int) -> [T] {
+        return items[rowNumber]
     }
     
     // MARK: Subscript

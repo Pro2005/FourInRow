@@ -124,6 +124,12 @@ extension GameScene: PlayingFieldDelegate {
         let row = game.addNewCellInColumn(columnNumber: didSelectColAt)
         let player = game.currentPlayer
         playingField.addBubble(color: player.color, row: row, column: didSelectColAt)
+        if let winner = game.isCurrentPlayerWinnerWithLast(row: row, column: didSelectColAt) {
+            print("WIN")
+        }
+//        if let winningPlayer = game.getWinningPlayerWithLast(row: row, column: didSelectColAt) {
+//            print("win")
+//        }
         game.nextPlayer()
     }
     

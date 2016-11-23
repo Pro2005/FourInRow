@@ -12,6 +12,11 @@
 		0819BB1C1DDF437A00F50A5A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819BB1B1DDF437A00F50A5A /* GameScene.swift */; };
 		0819BB1F1DDF468800F50A5A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819BB1E1DDF468800F50A5A /* GameViewController.swift */; };
 		0819BB241DDF510400F50A5A /* PlayingField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0819BB231DDF510400F50A5A /* PlayingField.swift */; };
+		082EDFA51DE59A3E005B26D2 /* RowIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082EDFA41DE59A3E005B26D2 /* RowIterator.swift */; };
+		082EDFA71DE59A4D005B26D2 /* ColumnIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082EDFA61DE59A4D005B26D2 /* ColumnIterator.swift */; };
+		082EDFA91DE59C3E005B26D2 /* MatrixIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082EDFA81DE59C3E005B26D2 /* MatrixIterator.swift */; };
+		082EDFAB1DE5A543005B26D2 /* DiagonalLeftToRightIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082EDFAA1DE5A543005B26D2 /* DiagonalLeftToRightIterator.swift */; };
+		082EDFAD1DE5C56D005B26D2 /* DiagonalRightToLeftIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082EDFAC1DE5C56D005B26D2 /* DiagonalRightToLeftIterator.swift */; };
 		0855FF111DE4EAC9000A7F06 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0855FF101DE4EAC9000A7F06 /* Player.swift */; };
 		0873AB751DE49FA50075FF82 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873AB741DE49FA50075FF82 /* Game.swift */; };
 		0873AB781DE4AE2E0075FF82 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873AB771DE4AE2E0075FF82 /* Matrix.swift */; };
@@ -26,6 +31,11 @@
 		0819BB1B1DDF437A00F50A5A /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		0819BB1E1DDF468800F50A5A /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		0819BB231DDF510400F50A5A /* PlayingField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingField.swift; sourceTree = "<group>"; };
+		082EDFA41DE59A3E005B26D2 /* RowIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowIterator.swift; sourceTree = "<group>"; };
+		082EDFA61DE59A4D005B26D2 /* ColumnIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnIterator.swift; sourceTree = "<group>"; };
+		082EDFA81DE59C3E005B26D2 /* MatrixIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixIterator.swift; sourceTree = "<group>"; };
+		082EDFAA1DE5A543005B26D2 /* DiagonalLeftToRightIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalLeftToRightIterator.swift; sourceTree = "<group>"; };
+		082EDFAC1DE5C56D005B26D2 /* DiagonalRightToLeftIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalRightToLeftIterator.swift; sourceTree = "<group>"; };
 		0855FF101DE4EAC9000A7F06 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0873AB741DE49FA50075FF82 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		0873AB771DE4AE2E0075FF82 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -123,6 +133,18 @@
 			path = Nodes;
 			sourceTree = "<group>";
 		};
+		082EDFA31DE59A21005B26D2 /* Iterators */ = {
+			isa = PBXGroup;
+			children = (
+				082EDFA41DE59A3E005B26D2 /* RowIterator.swift */,
+				082EDFA61DE59A4D005B26D2 /* ColumnIterator.swift */,
+				082EDFA81DE59C3E005B26D2 /* MatrixIterator.swift */,
+				082EDFAA1DE5A543005B26D2 /* DiagonalLeftToRightIterator.swift */,
+				082EDFAC1DE5C56D005B26D2 /* DiagonalRightToLeftIterator.swift */,
+			);
+			path = Iterators;
+			sourceTree = "<group>";
+		};
 		0873AB731DE49F9A0075FF82 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +157,7 @@
 		0873AB761DE4ADBE0075FF82 /* CustomClasses */ = {
 			isa = PBXGroup;
 			children = (
+				082EDFA31DE59A21005B26D2 /* Iterators */,
 				0873AB771DE4AE2E0075FF82 /* Matrix.swift */,
 			);
 			path = CustomClasses;
@@ -220,9 +243,14 @@
 			files = (
 				0873AB781DE4AE2E0075FF82 /* Matrix.swift in Sources */,
 				08A9CE0B1DE38935006A11CE /* Touchable.swift in Sources */,
+				082EDFAD1DE5C56D005B26D2 /* DiagonalRightToLeftIterator.swift in Sources */,
 				0873AB751DE49FA50075FF82 /* Game.swift in Sources */,
 				0819BB1C1DDF437A00F50A5A /* GameScene.swift in Sources */,
 				0855FF111DE4EAC9000A7F06 /* Player.swift in Sources */,
+				082EDFA71DE59A4D005B26D2 /* ColumnIterator.swift in Sources */,
+				082EDFA91DE59C3E005B26D2 /* MatrixIterator.swift in Sources */,
+				082EDFA51DE59A3E005B26D2 /* RowIterator.swift in Sources */,
+				082EDFAB1DE5A543005B26D2 /* DiagonalLeftToRightIterator.swift in Sources */,
 				0819BB241DDF510400F50A5A /* PlayingField.swift in Sources */,
 				0819BB1F1DDF468800F50A5A /* GameViewController.swift in Sources */,
 				0819BAF91DDF123500F50A5A /* AppDelegate.swift in Sources */,
