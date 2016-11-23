@@ -11,8 +11,10 @@ import Foundation
 struct Matrix <T> {
     private var items = [[T]]()
     
+    
+    
     init(row: Int, column: Int, initValue: T) {
-        for _ in 0...row {
+        for _ in 0..<row {
             let row = [T](repeatElement(initValue, count: column))
             items.append(row)
         }
@@ -24,6 +26,7 @@ struct Matrix <T> {
         for row in items {
             print(row, separator: "|", terminator: "\n")
         }
+        print("")
     }
     
     func itemsInColumn(_ columnNumber: Int) -> [T] {
@@ -46,6 +49,5 @@ struct Matrix <T> {
             items[row][column] = newValue;
         }
     }
-    
     
 }

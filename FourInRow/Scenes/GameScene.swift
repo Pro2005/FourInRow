@@ -15,7 +15,7 @@ private struct Constants {
 
 class GameScene: SKScene {
     private let playingFieldSize: CGSize!
-    let game: Game!
+    var game: Game!
     
     // MARK: Lazy properties
     
@@ -121,8 +121,10 @@ extension GameScene: PlayingFieldDelegate {
         if !game.shouldAddNewCellInColumn(columnNumber: didSelectColAt) {
             return
         }
-        game.addNewCellInColumn(columnNumber: didSelectColAt)
-//        game.displayInConsole()
+        let row = game.addNewCellInColumn(columnNumber: didSelectColAt)
+        let player = game.currentPlayer
+        playingField.addBubble(color: player.color, row: row, column: didSelectColAt)
+        game.nextPlayer()
     }
     
 }

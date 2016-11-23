@@ -20,14 +20,15 @@ private struct Constants {
 
 class PlayingField: SKSpriteNode {
     var delegate: PlayingFieldDelegate?
-    var numberCells: CGSize!
+    var numberCells: CGSize
+    var cellSize: CGSize!
 
     // MARK: Initializers
     
     init(size: CGSize, numberCells: CGSize) {
-        super.init(texture: nil, color: Constants.backgroundColor, size: size)
-        
         self.numberCells = numberCells
+        super.init(texture: nil, color: Constants.backgroundColor, size: size)
+        cellSize = CGSize(width: self.frame.size.width / numberCells.width, height: self.frame.size.height / numberCells.height)
         addNet(size: numberCells)
     }
     
@@ -35,12 +36,21 @@ class PlayingField: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Public
+    
+    func addBubble(color: UIColor, row: Int, column: Int) {
+        let radius = (cellSize.width > cellSize.height ? cellSize.height : cellSize.width) / 2.0
+        let bubble = SKShapeNode(circleOfRadius: radius)
+        bubble.fillColor = color
+        let position = getCenterPositionBy(row: row, column: column)
+        bubble.position = position
+        addChild(bubble)
+    }
+    
     // MARK: Private
     
     private func addNet(size: CGSize) {
         addVerticalLine(x: 0);
-        
-        let cellSize = CGSize(width: self.frame.size.width / size.width, height: self.frame.size.height / size.height)
         
         for i in 0 ... Int(size.width) {
             addVerticalLine(x: CGFloat(i) * cellSize.width)
@@ -69,6 +79,12 @@ class PlayingField: SKSpriteNode {
         line.fillColor = Constants.lineColor
         line.lineWidth = 0
         return line
+    }
+    
+    private func getCenterPositionBy(row: Int, column: Int) -> CGPoint {
+        let x = (CGFloat(column) * cellSize.width + cellSize.width / 2.0) - self.frame.size.width / 2.0
+        let y = (CGFloat(row) * cellSize.height + cellSize.height / 2.0) - self.frame.size.height / 2.0
+        return CGPoint(x: x, y: y)
     }
     
 }

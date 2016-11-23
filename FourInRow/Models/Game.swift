@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 private struct Constants {
-    static let emptyCell    = Foundation.NSNotFound
+    static let emptyCell    = 0
 }
 
 struct Game {
@@ -23,7 +23,7 @@ struct Game {
     // MARK: Initialization
     
     init(size: CGSize, players: [Player]) {
-        assert(players.count == 0)
+        assert(players.count != 0)
         self.size = size
         field = Matrix<Int>(row: Int(size.height), column: Int(size.width), initValue: Constants.emptyCell)
         self.players = players
@@ -32,21 +32,37 @@ struct Game {
     
     // MARK: Public
     
-    func addNewCellInColumn(columnNumber: Int) {
-        var rowIndex: Int = 0
+    mutating func addNewCellInColumn(columnNumber: Int) -> Int{
+        var rowIndex = 0
         for item in field.itemsInColumn(columnNumber) {
             if item == Constants.emptyCell {
                 break;
             }
             rowIndex += 1
         }
-//        self.field[rowIndex, columnNumber] = 10
+        field[rowIndex, columnNumber] = getCurrentPlayerIndex()
+        field.printDebug()
+        return rowIndex
     }
     
     func shouldAddNewCellInColumn(columnNumber: Int) -> Bool {
         return !isColumnFull(columnNumber: columnNumber)
     }
     
+    mutating func nextPlayer() {
+        let index = players.index { (player) -> Bool in
+            return player == currentPlayer
+        }
+        guard var currentIndex = index else {
+            return
+        }
+        currentIndex += 1
+        if currentIndex >= players.count {
+            currentIndex = 0
+        }
+        currentPlayer = players[currentIndex]
+        
+    }
     
     // MARK: Private
     
@@ -66,7 +82,7 @@ struct Game {
             return player == currentPlayer
         }
         if let index = index {
-            return index
+            return index + 1
         }
         return Constants.emptyCell
     }
