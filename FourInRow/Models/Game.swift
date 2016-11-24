@@ -92,6 +92,10 @@ struct Game {
         return nil
     }
     
+    mutating func reset() {
+        field = Matrix<Int>(row: Int(size.height), column: Int(size.width), initValue: Constants.emptyCell)
+    }
+    
     // MARK: Private
     
     private func isColumnFull(columnNumber: Int) -> Bool {

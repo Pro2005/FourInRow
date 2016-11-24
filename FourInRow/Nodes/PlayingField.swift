@@ -22,6 +22,7 @@ class PlayingField: SKSpriteNode {
     var delegate: PlayingFieldDelegate?
     var numberCells: CGSize
     var cellSize: CGSize!
+    var bubbles = [SKShapeNode]()
 
     // MARK: Initializers
     
@@ -44,7 +45,15 @@ class PlayingField: SKSpriteNode {
         bubble.fillColor = color
         let position = getCenterPositionBy(row: row, column: column)
         bubble.position = position
+        bubbles.append(bubble)
         addChild(bubble)
+    }
+    
+    func reset() {
+        for bubble in bubbles {
+            bubble.removeFromParent()
+        }
+        bubbles.removeAll()
     }
     
     // MARK: Private

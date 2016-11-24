@@ -84,8 +84,8 @@ class GameViewController: UIViewController {
     }
     
     private func createPlayers() -> [Player] {
-        let player1 = Player(name: "first", color: UIColor.red)
-        let player2 = Player(name: "second", color: UIColor.blue)
+        let player1 = Player(name: "player 1", color: UIColor.red)
+        let player2 = Player(name: "player 2", color: UIColor.blue)
         return [player1, player2]
     }
     

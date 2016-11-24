@@ -10,12 +10,18 @@ import SpriteKit
 import GameplayKit
 
 private struct Constants {
-    static let playingFieldInsets = UIEdgeInsets(top: 50, left: 10, bottom: 10, right: 10)
+    static let playingFieldInsets                   = UIEdgeInsets(top: 50, left: 10, bottom: 10, right: 10)
+    static let currentPlayerLabelTopOffset: CGFloat = 35
 }
 
 class GameScene: SKScene {
     private let playingFieldSize: CGSize!
     var game: Game!
+    var touchForReseting: Bool = false
+    private lazy var currentPlayerLabel: SKLabelNode = {
+        var label = SKLabelNode(text: "Hello")
+        return label
+    }()
     
     // MARK: Lazy properties
     
@@ -39,6 +45,8 @@ class GameScene: SKScene {
         self.playingFieldSize = game.size
         self.game = game
         super.init(size: size)
+        addLabelForDisplayingCurrentPlayer()
+        updateCurrentPlayerLabel(player: game.currentPlayer)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,6 +67,17 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    // MARK: Public
+    
+    func updateCurrentPlayerLabel(player: Player) {
+        currentPlayerLabel.fontColor = player.color
+        currentPlayerLabel.text = player.name
+    }
+    
+    func showWinner(player: Player) {
+        self.currentPlayerLabel.text = "\(player.name) won"
     }
     
     // MARK: UIResponder
@@ -90,6 +109,9 @@ class GameScene: SKScene {
     // MARK: Private
     
     private func touchDown(atPoint pos : CGPoint) {
+        if resetIfNeeded() {
+            return
+        }
         for object in touchableObjects {
             object.touchDown(atPoint: pos)
         }
@@ -113,6 +135,22 @@ class GameScene: SKScene {
         }
     }
     
+    private func addLabelForDisplayingCurrentPlayer() {
+        currentPlayerLabel.position = CGPoint(x: self.frame.size.width / 2.0 , y: self.frame.size.height - Constants.currentPlayerLabelTopOffset)
+        addChild(currentPlayerLabel)
+    }
+    
+    private func resetIfNeeded() -> Bool {
+        if !touchForReseting  {
+            return false
+        }
+        touchForReseting = false
+        game.reset()
+        playingField?.reset()
+        updateCurrentPlayerLabel(player: game.currentPlayer)
+        return true
+    }
+    
 }
 
 extension GameScene: PlayingFieldDelegate {
@@ -125,12 +163,12 @@ extension GameScene: PlayingFieldDelegate {
         let player = game.currentPlayer
         playingField.addBubble(color: player.color, row: row, column: didSelectColAt)
         if let winner = game.isCurrentPlayerWinnerWithLast(row: row, column: didSelectColAt) {
-            print("WIN")
+            showWinner(player: winner)
+            self.touchForReseting = true
+        } else {
+            game.nextPlayer()
+            updateCurrentPlayerLabel(player: game.currentPlayer)
         }
-//        if let winningPlayer = game.getWinningPlayerWithLast(row: row, column: didSelectColAt) {
-//            print("win")
-//        }
-        game.nextPlayer()
     }
     
 }
