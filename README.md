@@ -5,3 +5,5 @@ I used swift3 + SpriteKit
 
 ![Image of FourInRow]
 (https://github.com/Pro2005/FourInRow/blob/master/FourInRow/screenShot.png)
+
+I made it for fun!) Feel free to reuse this code)
