@@ -42,7 +42,6 @@ struct Game {
             rowIndex += 1
         }
         field[rowIndex, columnNumber] = getCurrentPlayerIndex()
-        field.printDebug()
         return rowIndex
     }
     
@@ -132,7 +131,9 @@ struct Game {
                 lenght = 0
             }
         }
-
+        if lenght > longestLength {
+            longestLength = lenght
+        }
         return longestLength
     }
     

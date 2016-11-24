@@ -19,7 +19,7 @@ class GameScene: SKScene {
     var game: Game!
     var touchForReseting: Bool = false
     private lazy var currentPlayerLabel: SKLabelNode = {
-        var label = SKLabelNode(text: "Hello")
+        var label = SKLabelNode(text: nil)
         return label
     }()
     

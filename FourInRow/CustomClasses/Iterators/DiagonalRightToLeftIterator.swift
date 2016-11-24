@@ -19,16 +19,16 @@ class DiagonalRightToLeftIterator<T>: MatrixIterator<T> {
         var position = getLowestPositionFor(row: row, column: column, matrix: matrix)
         
         while true {
-            if position.x < 0{
+            if position.column < 0{
                 break
             }
-            if position.y < 0 {
+            if position.row < 0 {
                 break
             }
-            let item = matrix[position.x, position.y]
+            let item = matrix[position.row, position.column]
             elements.append(item)
-            position.x -= 1
-            position.y -= 1
+            position.row -= 1
+            position.column -= 1
         }
         
         self.elements = elements
@@ -45,7 +45,7 @@ class DiagonalRightToLeftIterator<T>: MatrixIterator<T> {
     
     // MARK: Private
     
-    private func getLowestPositionFor(row: Int, column: Int, matrix: Matrix<T>) -> (x: Int, y: Int) {
+    private func getLowestPositionFor(row: Int, column: Int, matrix: Matrix<T>) -> (row: Int, column: Int) {
         var position = (x: column, y: row)
         
         while true {
@@ -59,7 +59,7 @@ class DiagonalRightToLeftIterator<T>: MatrixIterator<T> {
             position.y += 1
         }
         
-        return position
+        return (row: position.y, column: position.x)
     }
     
 }
