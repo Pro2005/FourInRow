@@ -11,7 +11,7 @@ import SpriteKit
 import GameplayKit
 
 private struct Constants {
-    static let playingFieldSize = CGSize(width: 7, height: 6)
+    static let playingFieldSize = CGSize(width: 7, height: 13)
 }
 
 class GameViewController: UIViewController {
