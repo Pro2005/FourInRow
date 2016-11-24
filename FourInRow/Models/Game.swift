@@ -65,27 +65,13 @@ struct Game {
     
     func isCurrentPlayerWinnerWithLast(row: Int, column: Int) -> Player? {
         let rowIterator = RowIterator<Int>(matrix: field, row: row)
-        var length = getLineLengthWith(iterator: rowIterator, countableIndex: getCurrentPlayerIndex())
-        if length >= Constants.lengthForWinning  {
-            return currentPlayer
-        }
-        
         let columnIterator = ColumnIterator<Int>(matrix: field, column: column)
-        length = getLineLengthWith(iterator: columnIterator, countableIndex: getCurrentPlayerIndex())
-        if length >= Constants.lengthForWinning {
-            return currentPlayer;
-        }
-        
         let leftToRightIterator = DiagonalLeftToRightIterator<Int>(matrix: field, row: row, column: column)
-        length = getLineLengthWith(iterator: leftToRightIterator, countableIndex: getCurrentPlayerIndex())
-        if length >= Constants.lengthForWinning {
-            return currentPlayer;
-        }
-        
         let rightToLeftIterator = DiagonalRightToLeftIterator<Int>(matrix: field, row: row, column: column)
-        length = getLineLengthWith(iterator: rightToLeftIterator, countableIndex: getCurrentPlayerIndex())
-        if length >= Constants.lengthForWinning {
-            return currentPlayer;
+        
+        let lenght = getMaxLineLenghtWith(iterators: [rowIterator, columnIterator, leftToRightIterator, rightToLeftIterator], countableIndex: getCurrentPlayerIndex())
+        if lenght >= Constants.lengthForWinning {
+            return currentPlayer
         }
         
         return nil
@@ -116,6 +102,17 @@ struct Game {
             return index + 1
         }
         return Constants.emptyCell
+    }
+    
+    private func getMaxLineLenghtWith(iterators: [MatrixIterator<Int>], countableIndex: Int) -> Int {
+        var length = 0;
+        for iterator in iterators {
+            let currentLenght = getLineLengthWith(iterator: iterator, countableIndex: countableIndex)
+            if (currentLenght > length) {
+                length = currentLenght
+            }
+        }
+        return length;
     }
     
     private func getLineLengthWith(iterator: MatrixIterator<Int>, countableIndex: Int) -> Int {
